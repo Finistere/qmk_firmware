@@ -5,7 +5,7 @@ see https://docs.qmk.fm/#/feature_split_keyboard?id=setting-handedness
 for more options. */
 
 // Delay before choosing "Hold" instead of "Tap"
-#define TAPPING_TERM 200
+// #define TAPPING_TERM 200
 // If another key is tapped while holding the key, it's "Hold" whether the delay expired or not.
 #define PERMISSIVE_HOLD
 
