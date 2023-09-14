@@ -283,6 +283,17 @@ MO(_SHIFT_ACCENT),     SKC_A_UMLAUT, S(KC_LEFT_BRACKET),  SKC_C_CEDILLE, S(KC_RI
 //     ),
 };
 
+# define NEOVIM_UP C(KC_Y)
+# define NEOVIM_DOWN C(KC_E)
+
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+[_QWERTY]       = { ENCODER_CCW_CW(NEOVIM_DOWN, NEOVIM_UP), ENCODER_CCW_CW(NEOVIM_UP, NEOVIM_DOWN) },
+[_ACCENT]       = { ENCODER_CCW_CW(_______, _______),       ENCODER_CCW_CW(_______, _______)       },
+[_SHIFT_ACCENT] = { ENCODER_CCW_CW(_______, _______),       ENCODER_CCW_CW(_______, _______)       },
+[_FUNCTION]     = { ENCODER_CCW_CW(_______, _______),       ENCODER_CCW_CW(_______, _______)       },
+[_GAMING]       = { ENCODER_CCW_CW(_______, _______),       ENCODER_CCW_CW(_______, _______)       },
+};
+
 
 bool is_neovim_window_active = false;
 bool delkey_registered = false;
@@ -447,33 +458,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 tap_code(KC_A);
                 tap_code(KC_ENT);
                 return false;
-        }
-    }
-    return true;
-}
-
-# define NEOVIM_UP C(KC_Y)
-# define NEOVIM_DOWN C(KC_E)
-# define NEOVIM_SCROLL_MULTIPLIER 5
-
-// Meant for neovim
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-        // Inversed
-        if (clockwise) {
-            for (uint8_t j = 0; j < NEOVIM_SCROLL_MULTIPLIER; j++) {
-                tap_code16(NEOVIM_UP);
-            }
-        } else {
-            for (uint8_t j = 0; j < NEOVIM_SCROLL_MULTIPLIER; j++) {
-                tap_code16(NEOVIM_DOWN);
-            }
-        }
-    } else if (index == 1) {
-        if (clockwise) {
-            tap_code16(NEOVIM_DOWN);
-        } else {
-            tap_code16(NEOVIM_UP);
         }
     }
     return true;
